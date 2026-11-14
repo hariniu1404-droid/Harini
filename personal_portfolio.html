@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio of Your Name, an aspiring developer.">
+  <title>Your Name | Portfolio</title>
+  <style>
+    :root {
+      --navy: #0b1224;
+      --panel: #121d35;
+      --panel-light: #192744;
+      --orange: #ff8a3d;
+      --text: #f4f6fb;
+      --muted: #aab5ca;
+      --line: rgba(255,255,255,.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 90%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(11,18,36,.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.35rem; font-weight: 800; letter-spacing: -.5px; }
+    .logo span, .accent { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .95rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: var(--panel);
+      color: var(--text); border-radius: 9px; padding: 8px 12px; font-size: 1.2rem; cursor: pointer;
+    }
+    section { padding: 88px 0; }
+    .eyebrow { color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: .78rem; }
+    h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); line-height: 1.08; letter-spacing: -2px; margin: 16px 0 20px; }
+    h2 { font-size: clamp(2rem, 4vw, 2.7rem); letter-spacing: -1px; margin: 8px 0 16px; }
+    p { color: var(--muted); }
+    .hero { min-height: 78vh; display: flex; align-items: center; padding: 90px 0; }
+    .hero-content { max-width: 760px; }
+    .hero p { max-width: 620px; font-size: 1.1rem; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+    .btn {
+      display: inline-block; padding: 12px 21px; border-radius: 9px; font-weight: 700;
+      border: 1px solid var(--orange); transition: transform .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--orange); color: #171321; }
+    .btn-outline { color: var(--orange); }
+    .section-heading { margin-bottom: 32px; }
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 36px; align-items: start; }
+    .about-copy p + p { margin-top: 14px; }
+    .info-panel, .skill-card, .project-card, .contact-panel {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    }
+    .info-panel { padding: 25px; }
+    .info-panel strong { color: var(--text); }
+    .info-row { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .info-row:last-child { border-bottom: 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .skill-card { padding: 23px; }
+    .skill-card h3, .project-card h3 { margin-bottom: 10px; }
+    .skill-card p { font-size: .95rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .project-card { padding: 25px; display: flex; flex-direction: column; min-height: 250px; }
+    .project-number { color: var(--orange); font-weight: 800; font-size: .85rem; margin-bottom: 18px; }
+    .project-card p { font-size: .95rem; flex: 1; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tag { font-size: .75rem; color: var(--orange); background: rgba(255,138,61,.1); padding: 4px 10px; border-radius: 20px; }
+    .contact-panel { padding: 34px; display: flex; justify-content: space-between; gap: 25px; align-items: center; }
+    .contact-panel p { max-width: 560px; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0; text-align: center; color: var(--muted); font-size: .88rem; }
+    @media (max-width: 760px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 72px; left: 0; right: 0;
+        padding: 18px 5%; background: var(--navy); border-bottom: 1px solid var(--line);
+        flex-direction: column; align-items: flex-start; gap: 15px;
+      }
+      .nav-links.open { display: flex; }
+      .about-grid, .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+      section { padding: 68px 0; }
+      .hero { min-height: 70vh; }
+      .contact-panel { align-items: flex-start; flex-direction: column; padding: 25px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="logo" href="#home">YourName<span>.</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">Hello, I'm</div>
+        <h1>Your Name.<br><span class="accent">Aspiring Developer.</span></h1>
+        <p>I'm a curious learner who enjoys turning ideas into useful digital experiences. I'm currently building my skills in web development and exploring the world of technology.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore my work</a>
+          <a class="btn btn-outline" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">A little about me</div>
+          <h2>About <span class="accent">Me</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>I'm a student and aspiring developer interested in creating simple, thoughtful solutions with technology. I like learning by building projects, experimenting with ideas, and improving a little with every challenge.</p>
+            <p>My current focus is strengthening my foundations in programming, HTML, and CSS while exploring new tools and technologies. I'm always excited to collaborate, learn, and take on new challenges.</p>
+          </div>
+          <div class="info-panel">
+            <div class="info-row"><strong>Name:</strong> Your Name</div>
+            <div class="info-row"><strong>Role:</strong> Student / Aspiring Developer</div>
+            <div class="info-row"><strong>Location:</strong> Your City</div>
+            <div class="info-row"><strong>Currently learning:</strong> HTML, CSS, Programming</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">What I'm learning</div>
+          <h2>My <span class="accent">Skills</span></h2>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>Web Development</h3>
+            <p>HTML5, CSS3, responsive layouts, and the basics of creating accessible web pages.</p>
+          </article>
+          <article class="skill-card">
+            <h3>Programming</h3>
+            <p>Programming fundamentals, problem-solving, and writing clear, structured code.</p>
+          </article>
+          <article class="skill-card">
+            <h3>Tools & Growth</h3>
+            <p>VS Code, GitHub basics, teamwork, curiosity, and a willingness to keep learning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Things I've worked on</div>
+          <h2>Featured <span class="accent">Projects</span></h2>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-number">PROJECT 01</div>
+            <h3>Personal Portfolio</h3>
+            <p>A responsive website that introduces me, highlights my skills, and makes it easy to contact me.</p>
+            <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          </article>
+          <article class="project-card">
+            <div class="project-number">PROJECT 02</div>
+            <h3>Student Task Tracker</h3>
+            <p>A simple concept for organising assignments, tracking deadlines, and keeping study tasks in one place.</p>
+            <div class="tag-row"><span class="tag">Web Design</span><span class="tag">UI</span></div>
+          </article>
+          <article class="project-card">
+            <div class="project-number">PROJECT 03</div>
+            <h3>Idea Lab Research</h3>
+            <p>A student research project exploring a real-world problem and how technology could support awareness or understanding.</p>
+            <div class="tag-row"><span class="tag">Research</span><span class="tag">Teamwork</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Let's connect</div>
+          <h2>Contact <span class="accent">Me</span></h2>
+        </div>
+        <div class="contact-panel">
+          <div>
+            <h3>Have an idea or want to collaborate?</h3>
+            <p>I'd be happy to hear from you. Replace the email address below with an address you want to share publicly.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:your.email@example.com">Email me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Your Name. Built with curiosity and code.</div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", isOpen);
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
